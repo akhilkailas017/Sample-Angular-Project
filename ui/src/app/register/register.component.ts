@@ -35,7 +35,7 @@ export class RegisterComponent {
     this.http.post("http://localhost:5000/register", bodyData).subscribe({
       next: (response: any) => {
         console.log("Registration successful", response);
-        this.router.navigateByUrl('/login');
+        this.router.navigateByUrl('/');
       },
       error: (error) => {
         console.error("Registration error:", error);
