@@ -52,22 +52,13 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  // Edit a person's details (fill the form with person's current details)
-  editPerson(person: any) {
-    this.id = person.id;
-    this.name = person.name;
-    this.age = person.age;
-    this.phone = person.phone;
-    this.isEditing = true;
-  }
 
-  // Update a person's details
   updatePerson() {
-    if (!this.id) {
-      alert('No person selected for editing!');
+    if (!this.id || !this.name || this.age === null || !this.phone) {
+      alert('Please fill all fields!');
       return;
     }
-
+  
     const updatedData = { name: this.name, age: this.age, phone: this.phone };
     this.http.put(`http://localhost:5000/person/${this.id}`, updatedData, { withCredentials: true }).subscribe({
       next: (response: any) => {
@@ -79,6 +70,16 @@ export class DashboardComponent implements OnInit {
       error: (error) => console.error('Error updating person:', error)
     });
   }
+  
+  editPerson(person: any) {
+    this.id = person.id;
+    this.name = person.name;
+    this.age = person.age;
+    this.phone = person.phone;
+    this.isEditing = true;
+  }
+  
+
 
   // Delete a person
   deletePerson(id: string) {
