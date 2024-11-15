@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,7 +19,7 @@ export class DashboardComponent implements OnInit {
   persons: any[] = [];
   isEditing: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private router:Router,private http: HttpClient) {}
 
   ngOnInit() {
     this.fetchPersons();
@@ -103,8 +104,9 @@ export class DashboardComponent implements OnInit {
     this.isEditing = false;
   }
 
-  // Navigate to home
   goToHome() {
-    // Implement routing logic to navigate to the home page if required
+    this.http.get('http://localhost:5000/logout', { withCredentials: true, responseType: 'text' }).subscribe(() => {
+      this.router.navigateByUrl('/');
+    });
   }
 }
